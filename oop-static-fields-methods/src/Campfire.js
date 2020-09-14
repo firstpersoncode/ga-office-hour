@@ -1,10 +1,11 @@
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 class Campfire {
+  // private static method
+  static #getRandomInt = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
   static fullness = {
     beefs: 0,
     muttons: 0
@@ -25,10 +26,10 @@ class Campfire {
     // })
 
     for (let i = 0; i < this.container.length; i++) {
-      let rand = getRandomInt(0, 2);
+      let rand = this.#getRandomInt(0, 2);
 
       if (this.container[i].weight > 300) {
-        rand = getRandomInt(0, 1);
+        rand = this.#getRandomInt(0, 1);
       }
 
       this.container[i].status = statuses[rand];
