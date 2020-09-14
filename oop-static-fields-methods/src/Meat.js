@@ -4,7 +4,10 @@ class Meat {
   constructor(weight, type) {
     this.weight = weight;
     this.type = type;
+    this.status = "Raw";
     this.id = 0;
+
+    this.onCreate();
   }
 
   onCreate() {

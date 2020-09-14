@@ -10,26 +10,30 @@ class Campfire {
     beefs: 0,
     muttons: 0
   };
+
   static container = [];
   static eaten = [];
 
   static addMeat(meats) {
+    if (!Array.isArray(meats)) {
+      this.container.push(meats);
+      return;
+    }
+
     this.container = this.container.concat(meats);
   }
 
   static grill() {
     const statuses = ["Raw", "Medium", "Well done"];
-
-    // this.container = this.container.map(meat => {
-    //   meat.status = statuses[rand]
-    //   return meat
-    // })
-
     for (let i = 0; i < this.container.length; i++) {
-      let rand = this.#getRandomInt(0, 2);
+      let rand = this.#getRandomInt(1, 2);
 
+      // jika weight lebih 300, maka status meat akan lebih sulit untuk menjadi "Well done"
       if (this.container[i].weight > 300) {
-        rand = this.#getRandomInt(0, 1);
+        rand = this.#getRandomInt(-2, 2);
+        if (rand < 0) {
+          rand = 0;
+        }
       }
 
       this.container[i].status = statuses[rand];
@@ -37,33 +41,37 @@ class Campfire {
   }
 
   static eat() {
-    // filter meat yang status nya "well done"
-    // const meatWelldone = this.container.filter(meat => meat.status === "Well done")
-    const meatWelldone = [];
-    const mapType = {
-      Beef: "beefs",
-      Mutton: "muttons"
-    };
-
     for (let i = 0; i < this.container.length; i++) {
-      if (this.container[i].status === "Well done") {
-        // masukan meat yang status welldone ke dalam this.eaten
+      const meat = this.container[i];
+      // jika status meat bukan lagi "Raw", maka masukan meat kedalam this.eaten
+      if (meat.status !== "Raw") {
         // sebelum dimasukkan ke this.eaten, kita validasi dlu, apakah dia sudah didalam this.eaten atau belum
+        let meatAlreadyEaten = false;
+        for (let j = 0; j < this.eaten.length; j++) {
+          const eatedMeat = this.eaten[j];
+          if (eatedMeat.id === meat.id) {
+            meatAlreadyEaten = true;
+          }
+        }
         // kalau belum, baru kita masukkan
-        const meatAlreadyEaten = this.eaten.find(
-          meat => meat.id === this.container[i].id
-        );
         if (!meatAlreadyEaten) {
-          this.eaten.push(this.container[i]);
+          this.eaten.push(meat);
         }
 
-        // update fullness berdasarkan type meat yang dimakan
-        this.fullness[mapType[this.container[i].type]]++;
+        // update this.fullness berdasarkan type meat yang dimakan
+        if (meat.type === "Beef") {
+          this.fullness.beefs++;
+        } else if (meat.type === "Mutton") {
+          this.fullness.muttons++;
+        }
       }
     }
 
-    // Hapus meat yang status nya "Well done" di dalam this.container
-    this.container = this.container.filter(meat => meat.status !== "Well done");
+    // hapus meat di this.container yang ada di this.eaten
+    for (let i = 0; i < this.eaten.length; i++) {
+      const eatedMeat = this.eaten[i];
+      this.container = this.container.filter(m => m.id !== eatedMeat.id);
+    }
   }
 }
 
