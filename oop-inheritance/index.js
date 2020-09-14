@@ -1,14 +1,13 @@
 // Import class class yang dibutuhkan
 const Dog = require("./src/Dog");
 const Cat = require("./src/Cat");
-const petShop = require("./src/PetShop");
+const PetShop = require("./src/PetShop");
 
-const petShop = new PetShop();
+const petShop = new PetShop("Toko hewan abadi");
 
 // mengisi result dengan 3 dog berdasarkan habitat nya
 const dogHabitats = ["kintamani", "makassar", "jakarta"];
 for (var i = 0; i < dogHabitats.length; i++) {
-  // loop semua habitat
   const newDog = new Dog(dogHabitats[i], "Andika");
   petShop.addDog(newDog);
 }
@@ -16,12 +15,13 @@ for (var i = 0; i < dogHabitats.length; i++) {
 // mengisi result dengan 3 cat berdasarkan habitat nya
 const catHabitats = ["hutan", "kota", "desa"];
 for (var i = 0; i < catHabitats.length; i++) {
-  // loop semua habitat
   const newCat = new Cat(catHabitats[i], "Dini");
   petShop.addCat(newCat);
 }
 
-console.log("-----------------DOG-----------------------");
+console.log(
+  "-----------------" + petShop.name + ": DOGS-----------------------"
+);
 for (var i = 0; i < petShop.dogs.length; i++) {
   const dog = petShop.dogs[i];
   dog.sayMyHabitat();
@@ -31,7 +31,9 @@ for (var i = 0; i < petShop.dogs.length; i++) {
     dog.bark();
   }
 }
-console.log("-----------------CAT-----------------------");
+console.log(
+  "-----------------" + petShop.name + ": CATS-----------------------"
+);
 for (var i = 0; i < petShop.cats.length; i++) {
   const cat = petShop.cats[i];
   cat.sayMyOwner();

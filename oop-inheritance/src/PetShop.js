@@ -10,7 +10,8 @@
  - addCat => void
 */
 class PetShop {
-  constructor() {
+  constructor(name) {
+    this.name = name;
     this.dogs = [];
     this.cats = [];
   }
