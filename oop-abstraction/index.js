@@ -56,6 +56,7 @@ class Agus extends Person {
 
 const person = new Person("John", "Doe");
 console.log(person.firstName); // undefined, cannot return private field
+// console.log(person.#firstName); // error unexpected token, cannot access field with prefix "#"
 console.log(person.fullName);
 person.setName("Jane Doe");
 console.log(person.fullName);
