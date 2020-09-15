@@ -14,55 +14,51 @@ class Dashboard {
     }
 
     for (let i = 0; i < barangBarang.length; i++) {
-      Gudang.tambahBarang(barangBarang[i]);
+      const { name, type } = barangBarang[i];
+      const newBarang = new Barang(name, type);
+      Gudang.tambahBarang(newBarang);
     }
-
-    // console.log("Barang2 berhasil dimasukkan ke gudang");
   }
 
-  static tampilkanBarang() {
-    const barangBarang = Gudang.listBarang();
-    if (!barangBarang.length) {
-      return console.error("Tidak ada barang2 di gudang, segera isi!");
-    }
+  static ambilBarangDariGudang(filter) {
+    const barangBarang = Gudang.listBarang(filter);
 
-    // console.log("Barang2 di gudang:", barangBarang);
     return barangBarang;
   }
 
-  static hapusBarang(ids) {
+  static hapusBarangDiGudang(ids) {
     const barangBarang = Gudang.listBarang();
 
     for (let i = 0; i < ids.length; i++) {
+      // ini untuk menemukan barang didalam barangBarang, sesuai ID
       const selectedBarang = barangBarang.find(b => b.id === ids[i]);
 
       if (selectedBarang) {
         Gudang.hapusBarang(ids[i]);
       }
     }
-
-    console.log("Barang2 berhasil dihapus");
   }
 
-  static updateBarang(id, field, value) {
+  static updateBarangDiGudang(id, field, value) {
     let barangBarang = Gudang.listBarang();
     // ini untuk menemukan barang didalam barangBarang, sesuai ID
     const selectedBarang = barangBarang.find(b => b.id === id);
     if (selectedBarang) {
       // yang ini untuk menemukan posisi barang (posisi barang di dalam Array barangBarang), yang nantinya dipake untuk update Array barangBarang dengan benar
-
       // contoh logic yg dipake
       // var arr = [
       //   1,
       //   2,
       //   3
       // ]
-      // [
+      // update to = [
       //   1,
       //   3,
       //   3
       // ]
-      // arr[1] = 3
+      // how to update:
+      // index = 1
+      // arr[index] = 3
       const selectedBarangIndex = barangBarang.findIndex(
         b => b.id === selectedBarang.id
       );
@@ -79,7 +75,6 @@ class Dashboard {
     }
 
     Gudang.updateStockBarang(barangBarang);
-    console.log("Barang ID: " + id + " berhasil diupdate");
   }
 }
 

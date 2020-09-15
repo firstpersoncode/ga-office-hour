@@ -1,14 +1,38 @@
 [
   {
-    "name": "test barang 1",
-    "type": "test-barang"
+    "name": "test barang terbaru 1",
+    "type": "furniture"
   },
   {
-    "name": "test barang 2",
-    "type": "test-barang"
+    "name": "test barang terbaru 2",
+    "type": "furniture"
   },
   {
-    "name": "test barang 3",
-    "type": "test-barang"
+    "name": "test barang terbaru 3",
+    "type": "elektronik"
+  },
+  {
+    "name": "test barang terbaru 4",
+    "type": "makanan-minuman"
+  },
+  {
+    "name": "test barang terbaru 5",
+    "type": "elektronik"
+  },
+  {
+    "name": "test barang terbaru 6",
+    "type": "makanan-minuman"
+  },
+  {
+    "name": "test barang terbaru 7",
+    "type": "elektronik"
+  },
+  {
+    "name": "test barang terbaru 8",
+    "type": "furniture"
+  },
+  {
+    "name": "test barang terbaru 9",
+    "type": "elektronik"
   }
 ]

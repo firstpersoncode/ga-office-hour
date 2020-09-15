@@ -9,10 +9,11 @@
 // update barang berdasarkan id
 
 const Dashboard = require("../view/Dashboard");
+const password = "Halo";
 
 class Admin {
-  static #verifikasiPassword = password => {
-    if (password !== "Halo") {
+  static #verifikasiPassword = pass => {
+    if (pass !== password) {
       console.error("Password salah!");
       return false;
     }
@@ -21,15 +22,15 @@ class Admin {
   };
 
   // yang boleh menampilkan barang, harus sediakan password
-  // passwordnya: "Halo"
-  static tampilkanBarang(password) {
+  static tampilkanBarang(pass, filter) {
     // list
-    const isVerified = this.#verifikasiPassword(password);
+    const isVerified = this.#verifikasiPassword(pass);
     if (!isVerified) {
       return;
     }
 
-    const barangBarang = Dashboard.tampilkanBarang();
+    const barangBarang = Dashboard.ambilBarangDariGudang(filter);
+    // hanya barang yang status nya true yang akan ditampilkan
     let barangBarangYangAkanDitampilkan = [];
     for (let i = 0; i < barangBarang.length; i++) {
       if (barangBarang[i].status === true) {
@@ -45,8 +46,8 @@ class Admin {
 
   // yang boleh menambahkan barang harus menyediakan password
   // barang akan dicek sebelum dimasukkan ke Dashboard
-  static tambahBarang(password, barangBarang) {
-    const isVerified = this.#verifikasiPassword(password);
+  static tambahBarang(pass, barangBarang) {
+    const isVerified = this.#verifikasiPassword(pass);
     if (!isVerified) {
       return;
     }
@@ -67,30 +68,27 @@ class Admin {
       }
     }
 
-    console.log("Barang akan diproses didashboard");
     Dashboard.tambahBarangKeGudang(barangBarang);
   }
 
   // yang boleh menghapus barang2 harus menyediakan password
-  static hapusBarangBarang(password, ids) {
-    const isVerified = this.#verifikasiPassword(password);
+  static hapusBarangBarang(pass, ids) {
+    const isVerified = this.#verifikasiPassword(pass);
     if (!isVerified) {
       return;
     }
 
-    console.log("Barang akan diproses didashboard");
-    Dashboard.hapusBarangBarang(ids);
+    Dashboard.hapusBarangDiGudang(ids);
   }
 
   // yang boleh mengupdate barang harus menyediakan password
-  static updateBarangBerdasarkanID(password, id, field, value) {
-    const isVerified = this.#verifikasiPassword(password);
+  static updateBarangBerdasarkanID(pass, id, field, value) {
+    const isVerified = this.#verifikasiPassword(pass);
     if (!isVerified) {
       return;
     }
 
-    console.log("Barang akan diproses didashboard");
-    Dashboard.updateBarang(id, field, value);
+    Dashboard.updateBarangDiGudang(id, field, value);
   }
 }
 
