@@ -15,15 +15,24 @@ const filter = process.argv[3];
 
 const barangBarang = JSON.parse(fs.readFileSync("./data.json", "utf8"));
 
+const functionPenangkapBarang = barangBarang => {
+  console.log("barang dari gudang:", barangBarang);
+};
+
 AdminController.tambahBarang(password, barangBarang);
-AdminController.tampilkanBarang(password, filter);
+// tampilkanBarang
+AdminController.tampilkanBarang(password, filter, functionPenangkapBarang);
+
 AdminController.updateBarangBerdasarkanID(password, 1, "status", true);
 AdminController.updateBarangBerdasarkanID(password, 2, "status", true);
 AdminController.updateBarangBerdasarkanID(password, 3, "status", true);
-AdminController.updateBarangBerdasarkanID(password, 4, "status", true);
-AdminController.updateBarangBerdasarkanID(password, 5, "status", true);
-AdminController.updateBarangBerdasarkanID(password, 8, "status", true);
-AdminController.updateBarangBerdasarkanID(password, 9, "status", true);
-AdminController.tampilkanBarang(password, filter);
+// AdminController.updateBarangBerdasarkanID(password, 4, "status", true);
+// AdminController.updateBarangBerdasarkanID(password, 5, "status", true);
+// AdminController.updateBarangBerdasarkanID(password, 8, "status", true);
+// AdminController.updateBarangBerdasarkanID(password, 9, "status", true);
+
+AdminController.tampilkanBarang(password, filter, functionPenangkapBarang);
+
 AdminController.hapusBarangBarang(password, [2, 3]);
-AdminController.tampilkanBarang(password, filter);
+
+AdminController.tampilkanBarang(password, filter, functionPenangkapBarang);

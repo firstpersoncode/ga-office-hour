@@ -22,26 +22,29 @@ class Admin {
   };
 
   // yang boleh menampilkan barang, harus sediakan password
-  static tampilkanBarang(pass, filter) {
+  static tampilkanBarang(pass, filter, callback) {
     // list
     const isVerified = this.#verifikasiPassword(pass);
     if (!isVerified) {
       return;
     }
 
-    const barangBarang = Dashboard.ambilBarangDariGudang(filter);
-    // hanya barang yang status nya true yang akan ditampilkan
-    let barangBarangYangAkanDitampilkan = [];
-    for (let i = 0; i < barangBarang.length; i++) {
-      if (barangBarang[i].status === true) {
-        barangBarangYangAkanDitampilkan.push(barangBarang[i]);
-      }
-    }
+    // simulasi async
+    setTimeout(() => {
+      const barangBarang = Dashboard.ambilBarangDariGudang(filter);
 
-    console.log(
-      "Barang yang tersedia di gudang:",
-      barangBarangYangAkanDitampilkan
-    );
+      // hanya barang yang status nya true yang akan ditampilkan
+      let barangBarangYangAkanDitampilkan = [];
+      for (let i = 0; i < barangBarang.length; i++) {
+        if (barangBarang[i].status === true) {
+          barangBarangYangAkanDitampilkan.push(barangBarang[i]);
+        }
+      }
+
+      callback(barangBarangYangAkanDitampilkan);
+    }, 2000);
+
+    console.log("Barang yang tersedia di gudang sedang diambil...");
   }
 
   // yang boleh menambahkan barang harus menyediakan password
